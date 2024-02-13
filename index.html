@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name = "viewport" content="width=device-width,initial-scale=1.0">
+        <title>Black Jack</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="index.js"></script>
+    </head>
+
+    <body>
+        <div class="container">
+            <h2>ディーラー</h2>
+            <div id="dealer-sum"></div>
+            <div id="dealer-cards">
+                <img src="img/card_back.png" id="dealer-card-1">
+                <img src="img/card_back.png" id="dealer-card-2">
+            </div>
+        </div>
+
+
+
+        <div class="container">
+            <h2>自分</h2>
+            <div id="my-sum"></div>
+            <div id="my-cards">
+                <img src="img/card_back.png" id="my-card-1">
+                <img src="img/card_back.png" id="my-card-2">
+            </div>
+            <div class="btn" id="button">
+                <button onclick="startGame()" id="startBtn">Start</button>
+                <button onclick="hitCard()" id="playBtn">Hit</button>
+                <button onclick="stay()" id="playBtn">Stay</button>
+            </div>
+            <div id="status"></div>
+        </div>
+
+        <div id="result"></div>
+
+    </body>
+</html>
