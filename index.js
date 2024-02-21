@@ -35,42 +35,41 @@ const buildDeck = () => { //52枚のデッキを作る　
 
 }
 
-const shuffleDeck = () => {
+const shuffleDeck = () => { //カードをシャッフル
     while (deck.length > 0) { //前のデッキの枚数が０になるまで繰り返す
-        i = Math.floor(Math.random() * deck.length) //ランダムな数字を出す
+        i = Math.floor(Math.random() * deck.length) //0-51のランダムな数字を出す
         newDeck.push(deck[i]) //新しいデッキに今のデッキのi番目の要素を追加
         deck.splice(i, 1)   //前のデッキのi番目の要素を削除
    }
 
-   console.log(newDeck)
+   //console.log(newDeck)
 }
 
-const drawCard = () => {
+const drawCard = () => { //引いたカードをnewDeck配列から削除
     return newDeck.pop()
 }
 
-const chooseCard = () => {
+const chooseCard = () => {　//手札を決める
     dealerCard1 = drawCard()
     dealerCard2 = drawCard()
     myCard1 = drawCard()
     myCard2 = drawCard()
 
-    dealerAceCount += checkAce(dealerCard1)
+    dealerAceCount += checkAce(dealerCard1) //引いたカードがAだと+1
     dealerAceCount += checkAce(dealerCard2)
 
     myAceCount += checkAce(myCard1)
     myAceCount += checkAce(myCard2)
     
     
-    //最初のカードの画像を代入
-    
+    //最初の手札の画像を代入
     document.getElementById('dealer-card-2').src = "img/" + dealerCard2 + ".png"
     document.getElementById('my-card-1').src = "img/" + myCard1 + ".png"
     document.getElementById('my-card-2').src = "img/" + myCard2 + ".png"
     
 }
 
-const getValue = (card) => {
+const getValue = (card) => { //カードの数字情報をとる
     cardData = card.split('_') //[4_Spade] → ['4', 'Spade']
     value = cardData[0]
 
@@ -89,35 +88,35 @@ const getValue = (card) => {
 
 
 
-const cardSum = () => {
+const cardSum = () => { //手札の数字の合計を求める
     dealerSum = getValue(dealerCard2)
     mySum = getValue(myCard1) + getValue(myCard2)
 
-    document.getElementById('dealer-sum').innerHTML = dealerSum
+    document.getElementById('dealer-sum').innerHTML = dealerSum //画面に合計値を表示させる
     document.getElementById('my-sum').innerHTML = mySum
 
-    if (mySum == 21) {
+    if (mySum == 21) { //手札が21の時はブラックジャックだから勝利判定にうつる
         stay()
     }
 
 }
 
 
-const hitCard = () => {
-    if(!canHit) {
+const hitCard = () => { //カードを一枚引く
+    if(!canHit) { //hitができない
         return;
     }
 
-    let card = drawCard()
-    cardImg = document.createElement('img')
+    let card = drawCard() 
+    cardImg = document.createElement('img') //img要素を追加する
     cardImg.src = "img/" + card + ".png"
-    mySum += getValue(card)
-    myAceCount += checkAce(card)
+    mySum += getValue(card) //引いたカードの数値を合計値にたす
+    myAceCount += checkAce(card) //引いたカードがAの時+1
 
-    document.getElementById("my-cards").append(cardImg)
+    document.getElementById("my-cards").append(cardImg) 
     
 
-    if (reduceMyAce() > 21) {   
+    if (reduceMyAce() > 21) {  //Aを考慮しても21より上ならhitできない、勝利判定にうつる
         canHit = false;
         document.getElementById('my-sum').innerHTML = mySum
         stay() 
@@ -161,7 +160,7 @@ const stay = () => {
         return
     }
 
-    canHit = false
+    canHit = false //stay押したらhitできないようにするため
     document.getElementById('dealer-card-1').src = "img/" + dealerCard1 + ".png"
 
     dealerSum += getValue(dealerCard1)
@@ -187,7 +186,7 @@ const stay = () => {
 
 }
 
-const judgeResult = () => {
+const judgeResult = () => {　//勝利判定
 
     if (dealerSum > 21 && mySum < 21) {
         result = "あなたの勝ち!"
@@ -209,7 +208,7 @@ const judgeResult = () => {
         result = "引き分け"
     }
    
-    canStay = false
+    canStay = false //Stayボタンを押しても作動しないようにする
 
     document.getElementById('status').innerHTML = result
 
